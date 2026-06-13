@@ -59,6 +59,20 @@ export default function ReportView({ report, onReset }) {
 
   const bandColor = BAND_COLORS[report.band] || 'var(--accent)';
 
+
+  const handleDownload = () => {
+    const company = (report.companyName) || (report.submittedData && report.submittedData.companyName) || 'startup';
+    const nl = '\n';
+    const sep = '==================================================';
+    const dims = (report.dimensions || []).map(function(d) { return d.name + ': ' + d.score + '/' + d.maxScore + nl + '  ' + d.why + nl + '  GCC: ' + d.menaContext; }).join(nl + nl);
+    const fixes = (report.topFixes || []).map(function(f) { return f.priority + '. ' + f.action + nl + '   ' + f.whyItMatters; }).join(nl + nl);
+    const text = ['PITCHDEPTH REPORT', sep, 'Company: ' + company, 'Score: ' + report.overallScore + '/100', 'Band: ' + report.band, '', 'BIGGEST RISK', report.biggestRisk, '', 'DIMENSIONS', dims, '', 'FIXES', fixes, '', report.curiosityHook, '', 'https://sarahkhan.app'].join(nl);
+    const blob = new Blob([text], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'pitchdepth-report.txt'; a.click();
+    URL.revokeObjectURL(url);
+  };
   const handleShare = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
@@ -319,6 +333,9 @@ export default function ReportView({ report, onReset }) {
           }}
         >
           {copied ? '✓ Link copied' : 'Share this report'}
+          </button>
+          <button onClick={handleDownload} style={{background:'var(--surface)',border:'1px solid var(--border)',borderRadius:6,padding:'8px 16px',color:'var(--text-secondary)',fontSize:12,fontFamily:'var(--font-body)',cursor:'pointer'}}>
+            {'Download Report'}
         </button>
       </div>
     </div>
