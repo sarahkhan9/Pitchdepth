@@ -68,8 +68,8 @@ export default function FormView({ onSubmit, error }) {
     setDeckParsed(false);
 
     try {
-      const text = await extractTextFromPDF(file);
-      set('deckText', text);
+      const pdfData = await extractTextFromPDF(file);
+      set('deckPDF', pdfData);
       setDeckParsed(true);
     } catch (err) {
       setDeckError('Could not read this PDF. Try pasting your deck content below instead.');
