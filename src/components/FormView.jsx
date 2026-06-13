@@ -57,8 +57,8 @@ export default function FormView({ onSubmit, error }) {
       setDeckError('Please upload a PDF file.');
       return;
     }
-    if (file.size > 20 * 1024 * 1024) {
-      setDeckError('File too large. Please upload a PDF under 20MB.');
+    if (file.size > 50 * 1024 * 1024) {
+      setDeckError('File too large. Please upload a PDF under 50MB.');
       return;
     }
 
@@ -220,7 +220,7 @@ export default function FormView({ onSubmit, error }) {
                   fontFamily: 'var(--font-mono)',
                   letterSpacing: '0.04em',
                 }}>
-                  PDF · MAX 20MB
+                  PDF · MAX 50MB
                 </div>
                 <input
                   ref={fileInputRef}
