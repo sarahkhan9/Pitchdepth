@@ -19,7 +19,7 @@ export async function evaluateStartup(formData) {
     ? [{ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: deckPDF.base64 } }, { type: 'text', text: textContent }]
     : textContent;
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  const response = await fetch('/api/evaluate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1000, system: PITCHDEPTH_SYSTEM_PROMPT, messages: [{ role: 'user', content: messageContent }] }),
