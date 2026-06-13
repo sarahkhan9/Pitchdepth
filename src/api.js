@@ -22,7 +22,7 @@ export async function evaluateStartup(formData) {
   const response = await fetch('/api/evaluate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1000, system: PITCHDEPTH_SYSTEM_PROMPT, messages: [{ role: 'user', content: messageContent }] }),
+    body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 4000, system: PITCHDEPTH_SYSTEM_PROMPT, messages: [{ role: 'user', content: messageContent }] }),
   });
 
   if (!response.ok) throw new Error('API error: ' + response.status);
